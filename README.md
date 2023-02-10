@@ -1,2 +1,2 @@
 # Modern-JavaScript
-On weiting modern JavaScript
+On writing modern JavaScript
