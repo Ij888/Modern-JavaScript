@@ -6,13 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas width="600" height="600"></canvas>
+    <canvas width="400" height="400"></canvas>
 
     <script>
-        const canvas = document.querySelector('canvas');
+    // Select the canvas element and get its 2D context
+        let canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
 
-        // Define a circle object with properties
+        //ctx.fillStyle = 'blue';
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.stroke();
+
+        // Draw circle
+        ctx.beginPath();
+        ctx.arc(200, 200, 150, 0, Math.PI * 2);
+        ctx.stroke();       
+
+
+        /* Define a circle object with properties
         function Circle(x, y, radius, color) {
             this.x = x;
             this.y = y;
@@ -35,6 +49,7 @@
             const radius = Math.random() * 50 + 10;
             
         }
+            */
     </script>
 <p>end of line</p>    
 </body>
