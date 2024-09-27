@@ -6,3 +6,5 @@ let Multiplication_fn = (a, b) => {
     return a * b;
 }
 console.log(Multiplication_fn(2, 5));
+
+//
