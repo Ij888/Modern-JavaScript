@@ -6,25 +6,54 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas width="400" height="400"></canvas>
+    <canvas width="600" height="600"></canvas>
 
     <script>
     // Select the canvas element and get its 2D context
         let canvas = document.querySelector('canvas');
+        //canvas.width = window.innerWidth;
+         //canvas.height = window.innerHeight;
         const ctx = canvas.getContext('2d');
+        ctx.lineWidth = 2;
+
+        for(let i = 0; i < 5; i++) {
+            for(let j = 0; j <  5; j++) {
+
+                // let width = canvas.getWidth;
+                let width = 60;
+                let height = 60;
+                let gap = 20;
+                let x = 100 + (width + gap) * i;
+                let y = 100 + (height + gap) * j;
+
+        ctx.beginPath();
+            //line below makes the canvas responsive
+          //  ctx.rect(canvas.width * 0.05, canvas.height * 0.1, canvas.width * 0.5, canvas.height * 0.5);
+        ctx.rect(x, y, width, height);
+        ctx.stroke();
+
+
+        ctx.beginPath();
+        ctx.rect(x + 8, y + 8, width - 15, height - 15);
+        //ctx.strokeStyle = "red"
+        ctx.stroke();
+
+            }
+        }
 
         //ctx.fillStyle = 'blue';
-        /*ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.lineWidth = 10;
         ctx.beginPath();
         ctx.rect(0, 0, canvas.width, canvas.height);
-        ctx.stroke();
-        */
+       // ctx.stroke();
+        
 
         // Draw circle
+        ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.arc(200, 200, 150, 0, Math.PI * 2);
-        ctx.stroke();       
+       // ctx.stroke();       
 
 
         /* Define a circle object with properties
