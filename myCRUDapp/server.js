@@ -10,5 +10,5 @@ AUTOINCREMENT,
     password TEXT NOT NULL
     
     )
-    `)
+    `);
 
