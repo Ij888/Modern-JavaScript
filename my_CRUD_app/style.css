@@ -1,0 +1,46 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background #cf0c0cff;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+}
+
+.container {
+    text-align: center;
+    }
+
+.button_groupo {
+    margin: 20px 0;
+    }
+
+#create_id, #read_id, #update_id, #delete_id {
+    
+    }
+
+.create_class, .read_class, .update_class, .delete_class {
+   
+    }   
+
+.create_class, #create_id {
+    background-color: #06b6d4;
+    }
+
+.read_class, #read_id {
+    background-color: #10b981;
+    }
+
+.update_class, #update_id {
+    background-color: #f97316;
+    }
+
+.delete_class, #delete_id {
+    background-color: #ec4899;
+    }
