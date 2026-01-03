@@ -7,6 +7,7 @@
 body {
     font-family: Arial, sans-serif;
     background #cf0c0cff;
+    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -16,10 +17,29 @@ body {
 .container {
     text-align: center;
     }
+ 
+h1 {
+    margin-bottom: 20px;
+    color: #333;   
+    }
 
 .button_groupo {
-    margin: 20px 0;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    gap: 20px;
+
+}
+
+.crud_button {
+    padding: 45px;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
 #create_id, #read_id, #update_id, #delete_id {
     
@@ -44,3 +64,4 @@ body {
 .delete_class, #delete_id {
     background-color: #ec4899;
     }
+
