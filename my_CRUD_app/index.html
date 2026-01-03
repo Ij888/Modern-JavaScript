@@ -19,6 +19,78 @@
         </div>
     </div>
 
+     <!-- Create Modal -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Record</h2>
+                <button class="close-btn" onclick="closeModal('createModal')">&times;</button>
+            </div>
+            <form onsubmit="createRecord(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="createName">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" id="createEmail">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="createDescription"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Read Modal -->
+    <div id="readModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>View Record</h2>
+                <button class="close-btn" onclick="closeModal('readModal')">&times;</button>
+            </div>
+            <div id="dataDisplay" class="data-display"></div>
+        </div>
+    </div>
+
+    <!-- Update Modal -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Record</h2>
+                <button class="close-btn" onclick="closeModal('updateModal')">&times;</button>
+            </div>
+            <form onsubmit="updateRecord(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="updateName">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" id="updateEmail">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="updateDescription"></textarea>
+                </div>
+                <button type="submit" class="submit-btn update-submit-btn">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Delete Data</h2>
+                <button class="close-btn" onclick="closeModal('deleteModal')">&times;</button>
+            </div>
+            <div id="deleteDisplay" class="data-display"></div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
