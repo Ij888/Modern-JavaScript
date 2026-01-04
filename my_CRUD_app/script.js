@@ -1,3 +1,12 @@
+function getRecords() {
+       var stored = localStorage.getItem('records');
+       return stored ? JSON.parse(stored) : [];
+}
+
+function saveRecords(records) {
+       localStorage.setItem('records', JSON.stringify(records));
+}
+
 function openCreate() {
        document.getElementById('createModal').classList.add('active');
 }
@@ -8,7 +17,11 @@ function openRead() {
 }
 
 function openUpdate() {
-       prefillUpdate();
+       var records = getRecords();
+       if (!records.length) {
+              return;
+       }
+       prefillUpdate(records.length - 1);
        document.getElementById('updateModal').classList.add('active');
 }
 
@@ -27,9 +40,13 @@ function createRecord(e) {
        var email = document.getElementById('createEmail').value;
        var desc = document.getElementById('createDescription').value;
 
-       localStorage.setItem('name', name);
-       localStorage.setItem('email', email);
-       localStorage.setItem('description', desc);
+       var records = getRecords();
+       records.push({
+              name: name,
+              email: email,
+              description: desc
+       });
+       saveRecords(records);
 
        document.getElementById('createName').value = '';
        document.getElementById('createEmail').value = '';
@@ -39,97 +56,128 @@ function createRecord(e) {
 }
 
 function displayData() {
-       var name = localStorage.getItem('name');
-       var email = localStorage.getItem('email');
-       var desc = localStorage.getItem('description');
+       var records = getRecords();
        var display = document.getElementById('dataDisplay');
 
-       if (!name && !email && !desc) {
+       if (!records.length) {
               display.innerHTML = '<div class="empty-state">No data stored yet</div>';
               return;
        }
 
        var html = '';
-
-       if (name) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Name</span><button class="delete-field-btn" onclick="deleteField(\'name\')">Delete</button></div><div class="data-item-value">' + name + '</div></div>';
-       }
-
-       if (email) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Email</span><button class="delete-field-btn" onclick="deleteField(\'email\')">Delete</button></div><div class="data-item-value">' + email + '</div></div>';
-       }
-
-       if (desc) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Description</span><button class="delete-field-btn" onclick="deleteField(\'description\')">Delete</button></div><div class="data-item-value">' + desc + '</div></div>';
-       }
+       records.forEach(function (record, index) {
+              html += '<div class="data-item">';
+              html += '<div class="data-item-header">';
+              html += '<span class="data-item-label">Record ' + (index + 1) + '</span>';
+              html += '<div class="data-item-actions">';
+              html += '<button class="delete-field-btn" onclick="openUpdateWithIndex(' + index + ')">Edit</button>';
+              html += '<button class="delete-field-btn" onclick="deleteRecord(' + index + ')">Delete</button>';
+              html += '</div>';
+              html += '</div>';
+              if (record.name) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Name</span><span class="data-item-value">' + record.name + '</span></div>';
+              }
+              if (record.email) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Email</span><span class="data-item-value">' + record.email + '</span></div>';
+              }
+              if (record.description) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Description</span><span class="data-item-value">' + record.description + '</span></div>';
+              }
+              html += '</div>';
+       });
 
        display.innerHTML = html;
 }
 
-function prefillUpdate() {
-       var name = localStorage.getItem('name');
-       var email = localStorage.getItem('email');
-       var desc = localStorage.getItem('description');
+function prefillUpdate(index) {
+       var records = getRecords();
+       var record = records[index];
+       if (!record) {
+              return;
+       }
 
-       document.getElementById('updateName').value = name || '';
-       document.getElementById('updateEmail').value = email || '';
-       document.getElementById('updateDescription').value = desc || '';
+       document.getElementById('updateIndex').value = index;
+       document.getElementById('updateName').value = record.name || '';
+       document.getElementById('updateEmail').value = record.email || '';
+       document.getElementById('updateDescription').value = record.description || '';
+}
+
+function openUpdateWithIndex(index) {
+       prefillUpdate(index);
+       document.getElementById('updateModal').classList.add('active');
 }
 
 function updateRecord(e) {
        e.preventDefault();
+       var index = parseInt(document.getElementById('updateIndex').value, 10);
        var name = document.getElementById('updateName').value;
        var email = document.getElementById('updateEmail').value;
        var desc = document.getElementById('updateDescription').value;
 
-       localStorage.setItem('name', name);
-       localStorage.setItem('email', email);
-       localStorage.setItem('description', desc);
+       var records = getRecords();
+       if (!records[index]) {
+              return;
+       }
+       records[index] = {
+              name: name,
+              email: email,
+              description: desc
+       };
+       saveRecords(records);
 
        closeModal('updateModal');
+       displayData();
 }
 
 function displayDeleteOptions() {
-       var name = localStorage.getItem('name');
-       var email = localStorage.getItem('email');
-       var desc = localStorage.getItem('description');
+       var records = getRecords();
        var display = document.getElementById('deleteDisplay');
 
-       if (!name && !email && !desc) {
+       if (!records.length) {
               display.innerHTML = '<div class="empty-state">No data to delete</div>';
               return;
        }
 
        var html = '';
 
-       if (name) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Name</span><button class="delete-field-btn" onclick="deleteField(\'name\')">Delete</button></div><div class="data-item-value">' + name + '</div></div>';
-       }
-
-       if (email) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Email</span><button class="delete-field-btn" onclick="deleteField(\'email\')">Delete</button></div><div class="data-item-value">' + email + '</div></div>';
-       }
-
-       if (desc) {
-              html += '<div class="data-item"><div class="data-item-header"><span class="data-item-label">Description</span><button class="delete-field-btn" onclick="deleteField(\'description\')">Delete</button></div><div class="data-item-value">' + desc + '</div></div>';
-       }
+       records.forEach(function (record, index) {
+              html += '<div class="data-item">';
+              html += '<div class="data-item-header">';
+              html += '<span class="data-item-label">Record ' + (index + 1) + '</span>';
+              html += '<button class="delete-field-btn" onclick="deleteRecord(' + index + ')">Delete</button>';
+              html += '</div>';
+              if (record.name) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Name</span><span class="data-item-value">' + record.name + '</span></div>';
+              }
+              if (record.email) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Email</span><span class="data-item-value">' + record.email + '</span></div>';
+              }
+              if (record.description) {
+                     html += '<div class="data-item-row"><span class="data-item-label">Description</span><span class="data-item-value">' + record.description + '</span></div>';
+              }
+              html += '</div>';
+       });
 
        html += '<button class="delete-all-btn" onclick="deleteAll()">Delete All</button>';
 
        display.innerHTML = html;
 }
 
-function deleteField(field) {
-       localStorage.removeItem(field);
+function deleteRecord(index) {
+       var records = getRecords();
+       if (!records[index]) {
+              return;
+       }
+       records.splice(index, 1);
+       saveRecords(records);
        displayDeleteOptions();
        displayData();
 }
 
 function deleteAll() {
-       localStorage.removeItem('name');
-       localStorage.removeItem('email');
-       localStorage.removeItem('description');
+       saveRecords([]);
        displayDeleteOptions();
+       displayData();
 }
 
 window.onclick = function (e) {
@@ -149,4 +197,3 @@ document.addEventListener('DOMContentLoaded', function () {
        if (updateBtn) updateBtn.addEventListener('click', openUpdate);
        if (deleteBtn) deleteBtn.addEventListener('click', openDelete);
 });
-
