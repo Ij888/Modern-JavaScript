@@ -19,5 +19,3 @@ let Multiplication_fn6 = (a, b) => a * b;
 console.log(Multiplication_fn6(2, 5));
 let Multiplication_fn7 = (a, b) => a * b;
 console.log(Multiplication_fn7(2, 5));
-
-
